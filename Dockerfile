@@ -1,14 +1,10 @@
-FROM python:3.11-slim
+# Imagen oficial de pgAdmin 4
+FROM dpage/pgadmin4:latest
 
-WORKDIR /app
-COPY . /app
-
-RUN pip install --no-cache-dir pgadmin4 gunicorn
-
+# Variables de entorno que Render usará
 ENV PGADMIN_DEFAULT_EMAIL=admin@admin.com
-ENV PGADMIN_DEFAULT_PASSWORD=admin
+ENV PGADMIN_DEFAULT_PASSWORD=admin123
 ENV PGADMIN_LISTEN_PORT=8080
 
+# Exponer el puerto
 EXPOSE 8080
-
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "pgadmin4.pgAdmin4:app"]
