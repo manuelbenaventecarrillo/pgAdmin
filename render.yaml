@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: pgadmin
+    env: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: PGADMIN_DEFAULT_EMAIL
+        value: admin@admin.com
+      - key: PGADMIN_DEFAULT_PASSWORD
+        value: admin123
+      - key: PGADMIN_LISTEN_PORT
+        value: 8080
+    ports:
+      - 8080
