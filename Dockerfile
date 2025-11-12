@@ -1,10 +1,14 @@
-# Usa la imagen oficial de pgAdmin 4
-FROM dpage/pgadmin4:latest
+FROM python:3.11-slim
 
-# Variables de entorno por defecto
+WORKDIR /app
+COPY . /app
+
+RUN pip install --no-cache-dir pgadmin4 gunicorn
+
 ENV PGADMIN_DEFAULT_EMAIL=admin@admin.com
-ENV PGADMIN_DEFAULT_PASSWORD=admin123
+ENV PGADMIN_DEFAULT_PASSWORD=admin
 ENV PGADMIN_LISTEN_PORT=8080
 
-# Expone el puerto del servidor interno de pgAdmin
 EXPOSE 8080
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "pgadmin4.pgAdmin4:app"]
